@@ -162,7 +162,7 @@ class PersonService {
 		anotherSave()
 	}
 
-@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def anotherSave() {
 		new Person(name: "anotherPerson").save()
 	}
@@ -413,27 +413,30 @@ mysql&gt;
 
 <p><strong>OK: Use NOT_SUPPORTED propagation</strong></p>
 
-<pre><code>@Transactional
+<pre class="prettyprint">
+<code>
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: "Roberto").save()
-			anotherSave()
-			new Person(name: "Raj").save()
-			throw new RuntimeException("Oh!")
+		new Person(name: "Roberto").save()
+		anotherSave()
+		new Person(name: "Raj").save()
+		throw new RuntimeException("Oh!")
 	}
 
 	@Transactional(propagation = Propagation.NOT_SUPPORTED)
 	def anotherSave() {
-			new Person(name: "another Person").save()
+		new Person(name: "another Person").save()
 	}
-
 }
 </code></pre>
 
 <p>Let's try this piece of code. We will truncate our table before that. </p>
 
-<pre><code>140605  9:29:14    21 Query SET autocommit=0
+<pre class="prettyprint">
+<code>
+140605  9:29:14    21 Query SET autocommit=0
 				21 Query insert into person (version, name) values (0, 'Roberto')
 				20 Query insert into person (version, name) values (0, 'another Person')
 				21 Query insert into person (version, name) values (0, 'Raj')
@@ -443,7 +446,9 @@ class PersonService {
 
 <p>Take a look on the thread ids, our another person statement is running in another thread and using the autocommit behaviour from MySQL. Now, look at our data</p>
 
-<pre><code>mysql&gt; select * from person;
+<pre class="prettyprint">
+<code>
+mysql&gt; select * from person;
 +----+---------+----------------+
 | id | version | name           |
 +----+---------+----------------+

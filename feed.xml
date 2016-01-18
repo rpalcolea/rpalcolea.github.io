@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dom, 17 ene 2016 19:42:45 -0800</pubDate>
-    <lastBuildDate>dom, 17 ene 2016 19:42:45 -0800</lastBuildDate>
+    <pubDate>dom, 17 ene 2016 19:44:24 -0800</pubDate>
+    <lastBuildDate>dom, 17 ene 2016 19:44:24 -0800</lastBuildDate>
 
     <item>
       <title>Grails Transactions - Revisited</title>
@@ -118,7 +118,7 @@ class PersonService {
 		anotherSave()
 	}
 
-@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def anotherSave() {
 		new Person(name: &quot;anotherPerson&quot;).save()
 	}
@@ -369,27 +369,30 @@ mysql&amp;gt;
 
 &lt;p&gt;&lt;strong&gt;OK: Use NOT_SUPPORTED propagation&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			anotherSave()
-			new Person(name: &quot;Raj&quot;).save()
-			throw new RuntimeException(&quot;Oh!&quot;)
+		new Person(name: &quot;Roberto&quot;).save()
+		anotherSave()
+		new Person(name: &quot;Raj&quot;).save()
+		throw new RuntimeException(&quot;Oh!&quot;)
 	}
 
 	@Transactional(propagation = Propagation.NOT_SUPPORTED)
 	def anotherSave() {
-			new Person(name: &quot;another Person&quot;).save()
+		new Person(name: &quot;another Person&quot;).save()
 	}
-
 }
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Let&apos;s try this piece of code. We will truncate our table before that. &lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  9:29:14    21 Query SET autocommit=0
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+140605  9:29:14    21 Query SET autocommit=0
 				21 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
 				20 Query insert into person (version, name) values (0, &apos;another Person&apos;)
 				21 Query insert into person (version, name) values (0, &apos;Raj&apos;)
@@ -399,7 +402,9 @@ class PersonService {
 
 &lt;p&gt;Take a look on the thread ids, our another person statement is running in another thread and using the autocommit behaviour from MySQL. Now, look at our data&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from person;
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+mysql&amp;gt; select * from person;
 +----+---------+----------------+
 | id | version | name           |
 +----+---------+----------------+
