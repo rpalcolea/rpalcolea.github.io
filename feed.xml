@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dom, 17 ene 2016 19:38:06 -0800</pubDate>
-    <lastBuildDate>dom, 17 ene 2016 19:38:06 -0800</lastBuildDate>
+    <pubDate>dom, 17 ene 2016 19:42:45 -0800</pubDate>
+    <lastBuildDate>dom, 17 ene 2016 19:42:45 -0800</lastBuildDate>
 
     <item>
       <title>Grails Transactions - Revisited</title>
@@ -72,55 +72,65 @@ class PersonService {
 
 &lt;p&gt;Now let&apos;s see what happens when we add another method:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			new Person(name: &quot;Raj&quot;).save()
-			anotherSave()
+		new Person(name: &quot;Roberto&quot;).save()
+		new Person(name: &quot;Raj&quot;).save()
+		anotherSave()
 	}
 
 	def anotherSave() {
-			new Person(name: &quot;anotherPerson&quot;).save()
+		new Person(name: &quot;anotherPerson&quot;).save()
 	}
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;If we invoke the save method again we will get this result:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  8:48:58    11 Query SET autocommit=0
-				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
-				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
-				11 Query insert into person (version, name) values (0, &apos;anotherPerson&apos;)
-				11 Query commit
-				11 Query SET autocommit=1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+140605  8:48:58    11 Query SET autocommit=0
+11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+11 Query insert into person (version, name) values (0, &apos;anotherPerson&apos;)
+11 Query commit
+11 Query SET autocommit=1
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;By default, the Grails transactions have REQUIRED propagation,  and in this case the &apos;anotherSave&apos; method will join the current transaction.&lt;/p&gt;
 
 &lt;p&gt;But what if we need to run the &apos;anotherMethod&apos; in another transaction? Well, we can just change the transaction&apos;s propagation to a REQUIRES_NEW. This will look like this:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			new Person(name: &quot;Raj&quot;).save()
-			anotherSave()
+		new Person(name: &quot;Roberto&quot;).save()
+		new Person(name: &quot;Raj&quot;).save()
+		anotherSave()
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def anotherSave() {
-			new Person(name: &quot;anotherPerson&quot;).save()
+		new Person(name: &quot;anotherPerson&quot;).save()
 	}
-
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;Again, we can invoke the save method and see the results:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  8:58:41    11 Query SET autocommit=0
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+140605  8:58:41    11 Query SET autocommit=0
 				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
 				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
 				10 Query SET autocommit=0
@@ -129,32 +139,38 @@ class PersonService {
 				10 Query SET autocommit=1
 				11 Query commit
 				11 Query SET autocommit=1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;At first glance we can see the change in autocommit but the most important thing are the numbers (10 and 11). These numbers represent the thread id, with this we know that they are running in another transaction.&lt;/p&gt;
 
 &lt;p&gt;Now, let&apos;s see what happens when a RuntimeException occurs in save method after invoking anotherSave. If you want, truncate our table after that, can change our code to this:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			new Person(name: &quot;Raj&quot;).save()
-			anotherSave()
-			throw new RuntimeException(&quot;oh!&quot;)
+		new Person(name: &quot;Roberto&quot;).save()
+		new Person(name: &quot;Raj&quot;).save()
+		anotherSave()
+		throw new RuntimeException(&quot;oh!&quot;)
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	def anotherSave() {
-			new Person(name: &quot;anotherPerson&quot;).save()
+		new Person(name: &quot;anotherPerson&quot;).save()
 	}
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;If we invoke the save method we will get the following in our database log:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  9:06:19    11 Query SET autocommit=0
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+140605  9:06:19    11 Query SET autocommit=0
 				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
 				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
 				10 Query SET autocommit=0
@@ -163,11 +179,14 @@ class PersonService {
 				10 Query SET autocommit=1
 				11 Query rollback
 				11 Query SET autocommit=1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;Ok, we know we have two transactions, let&apos;s make query to the database.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from person;
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+mysql&amp;gt; select * from person;
 +----+---------+---------------+
 | id | version | name          |
 +----+---------+---------------+
@@ -176,7 +195,8 @@ class PersonService {
 1 row in set (0.01 sec)
 
 mysql&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;As you can see, we have a new record in our database, this was generated by the method anotherSave. This is because we are running this statement in another transaction. &lt;/p&gt;
 
@@ -188,26 +208,30 @@ mysql&amp;gt;
 
 &lt;p&gt;&lt;strong&gt;FAIL: Using @NotTransactional annotation&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			anotherSave()
-	new Person(name: &quot;Raj&quot;).save()
+		new Person(name: &quot;Roberto&quot;).save()
+		anotherSave()
+		new Person(name: &quot;Raj&quot;).save()
 	}
 
 	@NotTransactional
 	def anotherSave() {
-			new Person(name: &quot;anotherPerson&quot;).save()
+		new Person(name: &quot;anotherPerson&quot;).save()
 	}
-
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;With this approach our database log will be:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  9:16:34    11 Query SET autocommit=0
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+	140605  9:16:34    11 Query SET autocommit=0
 				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
 				11 Query insert into person (version, name) values (0, &apos;anotherPerson&apos;)
 				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
@@ -221,28 +245,33 @@ class PersonService {
 
 &lt;p&gt;Well... maybe we can think something like &quot;If MySQL sets autocommit by default we can use SQL with GroovySQL and done&quot;. The service can be like this:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			anotherSave()
-			new Person(name: &quot;Raj&quot;).save()
+		new Person(name: &quot;Roberto&quot;).save()
+		anotherSave()
+		new Person(name: &quot;Raj&quot;).save()
 	}
 
 	def sessionFactory
 
 	def anotherSave() {
-			def sql = new Sql(sessionFactory.currentSession.connection())
-			sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
 	}
 
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;Ok... run this and you will see all in one transaction:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  9:21:15    21 Query SET autocommit=0
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+140605  9:21:15    21 Query SET autocommit=0
 				21 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
 				21 Query INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)
 				21 Query insert into person (version, name) values (0, &apos;Raj&apos;)
@@ -254,30 +283,35 @@ class PersonService {
 
 &lt;p&gt;&lt;strong&gt;FAIL: Using Groovy SQL and change the connection to autocommit&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			anotherSave()
-			new Person(name: &quot;Raj&quot;).save()
+		new Person(name: &quot;Roberto&quot;).save()
+		anotherSave()
+		new Person(name: &quot;Raj&quot;).save()
 	}
 
 	def sessionFactory
 
 	def anotherSave() {
-			def sql = new Sql(sessionFactory.currentSession.connection())
-			sql.connection.setAutoCommit(true)
-			sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
-			sql.connection.setAutoCommit(false)
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		sql.connection.setAutoCommit(true)
+		sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
+		sql.connection.setAutoCommit(false)
 	}
 
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;Execute this and look:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  9:22:47    21 Query SET autocommit=0
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+140605  9:22:47    21 Query SET autocommit=0
 				21 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
 				21 Query SET autocommit=1
 				21 Query INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)
@@ -289,31 +323,34 @@ class PersonService {
 
 &lt;p&gt;Oh! is changing the autocommit but wait... is the same thread. What is happening with the first query. Of course this seems to be ok because we are inserting everything and the code is not throwing a RuntimeException or Error. Lets add a RuntimeException and run it again. For this, we will truncate our table.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;@Transactional
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+@Transactional
 class PersonService {
 
 	def save() {
-			new Person(name: &quot;Roberto&quot;).save()
-			anotherSave()
-			new Person(name: &quot;Raj&quot;).save()
-			throw new RuntimeException(&quot;Oh!&quot;)
+		new Person(name: &quot;Roberto&quot;).save()
+		anotherSave()
+		new Person(name: &quot;Raj&quot;).save()
+		throw new RuntimeException(&quot;Oh!&quot;)
 	}
 
 	def sessionFactory
 
 	def anotherSave() {
-			def sql = new Sql(sessionFactory.currentSession.connection())
-			sql.connection.setAutoCommit(true)
-			sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
-			sql.connection.setAutoCommit(false)
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		sql.connection.setAutoCommit(true)
+		sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
+		sql.connection.setAutoCommit(false)
 	}
-
 }
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Execute this and you will see the same query log but look at your table data:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from person;
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+mysql&amp;gt; select * from person;
 +----+---------+---------------+
 | id | version | name          |
 +----+---------+---------------+
@@ -323,7 +360,8 @@ class PersonService {
 2 rows in set (0.00 sec)
 
 mysql&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;Yes we set the autocommit to true but we were under the same transaction so our first query was commited too and we don&apos;t want this.&lt;/p&gt;
 
