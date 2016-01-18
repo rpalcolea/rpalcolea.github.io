@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dom, 17 ene 2016 19:35:31 -0800</pubDate>
-    <lastBuildDate>dom, 17 ene 2016 19:35:31 -0800</lastBuildDate>
+    <pubDate>dom, 17 ene 2016 19:37:08 -0800</pubDate>
+    <lastBuildDate>dom, 17 ene 2016 19:37:08 -0800</lastBuildDate>
 
     <item>
       <title>Grails Transactions - Revisited</title>
@@ -40,7 +40,9 @@
 
 &lt;p&gt;First, we can start creating a Domain Class and a Service to examine how a transaction works:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class Person {
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+class Person {
 	String name
 }
 
@@ -53,16 +55,20 @@ def save() {
 }
 
 }
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;Now, if we invoke the save method, we can see the following in our database log.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;140605  8:42:42    11 Query SET autocommit=0
-				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
-				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
-				11 Query commit
-				11 Query SET autocommit=1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;prettyprint&quot;&gt;
+&lt;code&gt;
+140605  8:42:42    11 Query SET autocommit=0
+11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+11 Query commit
+11 Query SET autocommit=1
+&lt;/code&gt;
+&lt;/pre&gt;
 
 &lt;p&gt;As you can see, is setting the autocommit to 0, inserting, commit, set autocommit 1. This is what we are expecting to do, this is the way we handle transactions.&lt;/p&gt;
 
