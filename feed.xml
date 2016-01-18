@@ -6,9 +6,392 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dom, 17 ene 2016 19:31:42 -0800</pubDate>
-    <lastBuildDate>dom, 17 ene 2016 19:31:42 -0800</lastBuildDate>
+    <pubDate>dom, 17 ene 2016 19:35:31 -0800</pubDate>
+    <lastBuildDate>dom, 17 ene 2016 19:35:31 -0800</lastBuildDate>
 
+    <item>
+      <title>Grails Transactions - Revisited</title>
+      <link>http://rpalcolea.github.io/blog/grails-transactions-revisited.html</link>
+      <pubDate>lun, 9 jun 2014 00:00:00 -0700</pubDate>
+      <guid isPermaLink="false">blog/grails-transactions-revisited.html</guid>
+      	<description>
+	
+&lt;h2&gt;Grails Transactions Revisited&lt;/h2&gt;
+
+&lt;p&gt;As we know, Grails services by default have automatic transaction management such as propagation and so on. By setting transactional to false you disable automatic Spring managed transaction demarcation for every method in the service. When is set to the true, The propagation level of the transaction is by default PROPAGATION_REQUIRED. Also we can use the @ Transactional and @ NotTransactional annotations. &lt;/p&gt;
+
+&lt;p&gt;What is a transaction? In simple terms, a transaction is:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;getConnection()&lt;/li&gt;
+&lt;li&gt;setAutocommit(false)&lt;/li&gt;
+&lt;li&gt;do work&lt;/li&gt;
+&lt;li&gt;commit&lt;/li&gt;
+&lt;li&gt;Error handling and rollback if necessary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But, what is happening in our database when we use transactions? The purpose of this post is to present some small code examples and the behavior at database level. There are some requirements for them to run the following examples:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a grails applicaton (2.3+)&lt;/li&gt;
+&lt;li&gt;Configure the Datasource.groovy file to use a MySQL connnection.&lt;/li&gt;
+&lt;li&gt;Enable the query log for your MySQL server. &lt;a href=&quot;http://stackoverflow.com/questions/6479107/how-to-enable-mysql-query-log&quot;&gt;Here is a reference for that&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;First, we can start creating a Domain Class and a Service to examine how a transaction works:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Person {
+	String name
+}
+
+@Transactional
+class PersonService {
+
+def save() {
+		new Person(name: &quot;Roberto&quot;).save()
+		new Person(name: &quot;Raj&quot;).save()
+}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, if we invoke the save method, we can see the following in our database log.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  8:42:42    11 Query SET autocommit=0
+				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				11 Query commit
+				11 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, is setting the autocommit to 0, inserting, commit, set autocommit 1. This is what we are expecting to do, this is the way we handle transactions.&lt;/p&gt;
+
+&lt;p&gt;Now let&apos;s see what happens when we add another method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			new Person(name: &quot;Raj&quot;).save()
+			anotherSave()
+	}
+
+	def anotherSave() {
+			new Person(name: &quot;anotherPerson&quot;).save()
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we invoke the save method again we will get this result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  8:48:58    11 Query SET autocommit=0
+				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				11 Query insert into person (version, name) values (0, &apos;anotherPerson&apos;)
+				11 Query commit
+				11 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default, the Grails transactions have REQUIRED propagation,  and in this case the &apos;anotherSave&apos; method will join the current transaction.&lt;/p&gt;
+
+&lt;p&gt;But what if we need to run the &apos;anotherMethod&apos; in another transaction? Well, we can just change the transaction&apos;s propagation to a REQUIRES_NEW. This will look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			new Person(name: &quot;Raj&quot;).save()
+			anotherSave()
+	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	def anotherSave() {
+			new Person(name: &quot;anotherPerson&quot;).save()
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Again, we can invoke the save method and see the results:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  8:58:41    11 Query SET autocommit=0
+				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				10 Query SET autocommit=0
+				10 Query insert into person (version, name) values (0, &apos;anotherPerson&apos;)
+				10 Query commit
+				10 Query SET autocommit=1
+				11 Query commit
+				11 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At first glance we can see the change in autocommit but the most important thing are the numbers (10 and 11). These numbers represent the thread id, with this we know that they are running in another transaction.&lt;/p&gt;
+
+&lt;p&gt;Now, let&apos;s see what happens when a RuntimeException occurs in save method after invoking anotherSave. If you want, truncate our table after that, can change our code to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			new Person(name: &quot;Raj&quot;).save()
+			anotherSave()
+			throw new RuntimeException(&quot;oh!&quot;)
+	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	def anotherSave() {
+			new Person(name: &quot;anotherPerson&quot;).save()
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we invoke the save method we will get the following in our database log:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  9:06:19    11 Query SET autocommit=0
+				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				10 Query SET autocommit=0
+				10 Query insert into person (version, name) values (0, &apos;anotherPerson&apos;)
+				10 Query commit
+				10 Query SET autocommit=1
+				11 Query rollback
+				11 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ok, we know we have two transactions, let&apos;s make query to the database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from person;
++----+---------+---------------+
+| id | version | name          |
++----+---------+---------------+
+|  3 |       0 | anotherPerson |
++----+---------+---------------+
+1 row in set (0.01 sec)
+
+mysql&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, we have a new record in our database, this was generated by the method anotherSave. This is because we are running this statement in another transaction. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANT: automatic rollback occurs if a method throws a runtime exception (i.e. one that extends RuntimeException) or an Error. Checked exceptions do not roll back transactions.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Ok, by now you know that the transaction disables autocommit to execute one or more statements and then do the commit.&lt;/p&gt;
+
+&lt;p&gt;Now imagine a scenario in which you require that the  statements of anotherSave should be with auto-commit (MySQL has autocommit enabled by default). Let&apos;s take a look on this... first, we will put a few examples of possible ideas that won&apos;t work:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;FAIL: Using @NotTransactional annotation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			anotherSave()
+	new Person(name: &quot;Raj&quot;).save()
+	}
+
+	@NotTransactional
+	def anotherSave() {
+			new Person(name: &quot;anotherPerson&quot;).save()
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With this approach our database log will be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  9:16:34    11 Query SET autocommit=0
+				11 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				11 Query insert into person (version, name) values (0, &apos;anotherPerson&apos;)
+				11 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				11 Query commit
+				11 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Look at this... is under the same thread. So this option is discarded.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;FAIL: Using Groovy SQL without change the propagation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Well... maybe we can think something like &quot;If MySQL sets autocommit by default we can use SQL with GroovySQL and done&quot;. The service can be like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			anotherSave()
+			new Person(name: &quot;Raj&quot;).save()
+	}
+
+	def sessionFactory
+
+	def anotherSave() {
+			def sql = new Sql(sessionFactory.currentSession.connection())
+			sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ok... run this and you will see all in one transaction:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  9:21:15    21 Query SET autocommit=0
+				21 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				21 Query INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)
+				21 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				21 Query commit
+				21 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So this is not working as we expected... oh but maybe &quot;we can just change the connection to autocommit&quot;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;FAIL: Using Groovy SQL and change the connection to autocommit&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			anotherSave()
+			new Person(name: &quot;Raj&quot;).save()
+	}
+
+	def sessionFactory
+
+	def anotherSave() {
+			def sql = new Sql(sessionFactory.currentSession.connection())
+			sql.connection.setAutoCommit(true)
+			sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
+			sql.connection.setAutoCommit(false)
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute this and look:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  9:22:47    21 Query SET autocommit=0
+				21 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				21 Query SET autocommit=1
+				21 Query INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)
+				21 Query SET autocommit=0
+				21 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				21 Query commit
+				21 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Oh! is changing the autocommit but wait... is the same thread. What is happening with the first query. Of course this seems to be ok because we are inserting everything and the code is not throwing a RuntimeException or Error. Lets add a RuntimeException and run it again. For this, we will truncate our table.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			anotherSave()
+			new Person(name: &quot;Raj&quot;).save()
+			throw new RuntimeException(&quot;Oh!&quot;)
+	}
+
+	def sessionFactory
+
+	def anotherSave() {
+			def sql = new Sql(sessionFactory.currentSession.connection())
+			sql.connection.setAutoCommit(true)
+			sql.execute(&quot;INSERT INTO `test`.`person` (`version`, `name`) VALUES (&apos;0&apos;, &apos;anotherPerson&apos;)&quot;)
+			sql.connection.setAutoCommit(false)
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute this and you will see the same query log but look at your table data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from person;
++----+---------+---------------+
+| id | version | name          |
++----+---------+---------------+
+|  1 |       0 | Roberto       |
+|  2 |       0 | anotherPerson |
++----+---------+---------------+
+2 rows in set (0.00 sec)
+
+mysql&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Yes we set the autocommit to true but we were under the same transaction so our first query was commited too and we don&apos;t want this.&lt;/p&gt;
+
+&lt;p&gt;This is where we can use another propagation. Let&apos;s try it with NOT&lt;em&gt;SUPPORTED and use GORM again. NOT&lt;/em&gt;SUPPORTED execute non-transactionally, suspend the current transaction if one exists.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;OK: Use NOT_SUPPORTED propagation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+class PersonService {
+
+	def save() {
+			new Person(name: &quot;Roberto&quot;).save()
+			anotherSave()
+			new Person(name: &quot;Raj&quot;).save()
+			throw new RuntimeException(&quot;Oh!&quot;)
+	}
+
+	@Transactional(propagation = Propagation.NOT_SUPPORTED)
+	def anotherSave() {
+			new Person(name: &quot;another Person&quot;).save()
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&apos;s try this piece of code. We will truncate our table before that. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;140605  9:29:14    21 Query SET autocommit=0
+				21 Query insert into person (version, name) values (0, &apos;Roberto&apos;)
+				20 Query insert into person (version, name) values (0, &apos;another Person&apos;)
+				21 Query insert into person (version, name) values (0, &apos;Raj&apos;)
+				21 Query rollback
+				21 Query SET autocommit=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Take a look on the thread ids, our another person statement is running in another thread and using the autocommit behaviour from MySQL. Now, look at our data&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; select * from person;
++----+---------+----------------+
+| id | version | name           |
++----+---------+----------------+
+|  2 |       0 | another Person |
++----+---------+----------------+
+1 row in set (0.00 sec)
+
+mysql&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We only have the record that we want and because we had an exception, the transaction in the save method became a rollback. This is a nice approach. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANT: We know that maybe is not common to go under an auto-commit rule but you never know maybe tomorrow you will need it&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To finish this small post, here is a list of the available propagations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PROPAGATION_MANDATORY:  Support a current transaction; throw an exception if no current transaction exists.&lt;/li&gt;
+&lt;li&gt;PROPAGATION&lt;em&gt;NESTED: Execute within a nested transaction if a current transaction exists, behave like PROPAGATION&lt;/em&gt;REQUIRED else.&lt;/li&gt;
+&lt;li&gt;PROPAGATION_NEVER: Do not support a current transaction; throw an exception if a current transaction exists.&lt;/li&gt;
+&lt;li&gt;PROPAGATION&lt;em&gt;NOT&lt;/em&gt;SUPPORTED: Do not support a current transaction; rather always execute non-transactionally.&lt;/li&gt;
+&lt;li&gt;PROPAGATION_REQUIRED: Support a current transaction; create a new one if none exists.&lt;/li&gt;
+&lt;li&gt;PROPAGATION&lt;em&gt;REQUIRES&lt;/em&gt;NEW: Create a new transaction, suspending the current transaction if one exists.&lt;/li&gt;
+&lt;li&gt;PROPAGATION_SUPPORTS: Support a current transaction; execute non-transactionally if none exists.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;we deal with important data to the business, so we must pay close attention to avoid any data loss problem while running transactions&lt;/p&gt;
+
+&lt;p&gt;These examples were developed along with Raj Govindarajan.&lt;/p&gt;
+
+&lt;p&gt;Hope this can help you in the future.&lt;/p&gt;
+
+	</description>
+    </item>
     <item>
       <title>Fourth Post</title>
       <link>http://rpalcolea.github.io/blog/2013/fourth-post.html</link>
