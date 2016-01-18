@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>@rpalcolea</title>
+    <title>Grails Transactions - Revisited</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -10,14 +10,14 @@
     <meta name="generator" content="JBake">
 
     <!-- Le styles -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/asciidoctor.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/prettify.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
+      <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="../../favicon.ico">
   </head>
   <body onload="prettyPrint()">
     <div id="wrap">
@@ -40,25 +40,26 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">@rpalcolea</a>
+          <a class="navbar-brand" href="../../">@rpalcolea</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="feed.xml">Subscribe</a></li>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">Subscribe</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
     <div class="container">
-
+	
 	<div class="page-header">
-		<h1>Blog</h1>
+		<h1>Grails Transactions - Revisited</h1>
 	</div>
-  			<a href="blog/2014/grails-transactions-revisited.html"><h1>Grails Transactions - Revisited</h1></a>
-  			<p>09 junio 2014</p>
-  			<p>
+
+	<p><em>09 junio 2014</em></p>
+
+	<p>
 <h2>Grails Transactions Revisited</h2>
 
 <p>As we know, Grails services by default have automatic transaction management such as propagation and so on. By setting transactional to false you disable automatic Spring managed transaction demarcation for every method in the service. When is set to the true, The propagation level of the transaction is by default PROPAGATION_REQUIRED. Also we can use the @ Transactional and @ NotTransactional annotations. </p>
@@ -480,197 +481,9 @@ mysql&gt;
 
 <p>Hope this can help you in the future.</p>
 </p>
-  			<a href="blog/2014/spring-security-login-with-recaptcha.html"><h1>Grails Transactions - Revisited</h1></a>
-  			<p>28 abril 2014</p>
-  			<p>
-<h2>Spring Security Login With Recaptcha</h2>
 
-<p>A few months ago I was asked to create a login with ReCaptcha using spring security core and recaptcha plugins. At that time I made a plugin for solving the requirement <a href="http://grails.org/plugin/recaptcha-spring-security">Spring Security Plugin Recaptcha</a>. Today I want to share another idea to accomplish this.</p>
-
-<p>Assuming the application has <a href="http://grails.org/plugin/recaptcha">ReCaptcha</a> and <a href="http://grails.org/plugin/spring-security-core">spring security core</a>  the first thing to do is add the ReCaptcha widget our loginview, usually auth.gsp.</p>
-
-<pre class="prettyprint">
-	<code>
-		&lt;p&gt;
-					&lt;label for='username'&gt;&lt;g:message code="springSecurity.login.username.label"/&gt;:&lt;/label&gt;
-					&lt;input type='text' class='text_' name='j_username' id='username'/&gt;
-				&lt;/p&gt;
-
-					&lt;p&gt;
-							&lt;label for='password'&gt;&lt;g:message code="springSecurity.login.password.label"/&gt;:&lt;/label&gt;
-							&lt;input type='password' class='text_' name='j_password' id='password'/&gt;
-					&lt;/p&gt;
-
-		&lt;p&gt;
-							&lt;recaptcha:ifEnabled&gt;
-									&lt;recaptcha:recaptcha  theme="clean"/&gt;
-									&lt;recaptcha:ifFailed&gt;CAPTCHA Failed&lt;/recaptcha:ifFailed&gt;
-									&lt;/recaptcha:ifEnabled&gt;
-					&lt;/p&gt;
-</code></pre>
-
-<p>Then generate a filter (AuthFilter.groovy) to override the 'authenticationProcessingFilter' bean (this filter subclasses the plugin's RequestHolderAuthenticationFilter to Maintain its functionality). You can name this filter as you like and put it under /src/groovy folder.</p>
-
-<pre class="prettyprint"><code>    import com.megatome.grails.RecaptchaService
-					import grails.plugin.springsecurity.web.authentication.RequestHolderAuthenticationFilter
-			import org.springframework.security.authentication.BadCredentialsException
-			import org.springframework.security.core.Authentication
-			import org.springframework.security.core.AuthenticationException
-
-			import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler
-			import org.springframework.web.context.request.RequestContextHolder
-
-			import javax.servlet.http.HttpServletRequest
-			import javax.servlet.http.HttpServletResponse
-
-			class AuthFilter extends RequestHolderAuthenticationFilter {
-					private String recaptcha_response
-					private String recaptcha_challenge
-					private String remoteAddr
-					private String failureUrl
-
-					RecaptchaService recaptchaService
-
-					private SimpleUrlAuthenticationFailureHandler failureHandler = new SimpleUrlAuthenticationFailureHandler()
-
-					@Override
-					Authentication attemptAuthentication(HttpServletRequest request,
-																							HttpServletResponse response)
-									throws AuthenticationException {
-
-							def session = RequestContextHolder.currentRequestAttributes().getSession()
-
-							recaptcha_response = request.getParameter("recaptcha_response_field")
-							recaptcha_challenge = request.getParameter("recaptcha_challenge_field")
-							remoteAddr = request.getRemoteAddr()
-
-							Map params = ["recaptcha_response_field": recaptcha_response, "recaptcha_challenge_field": recaptcha_challenge]
-
-							// Check if valid
-							if (!recaptchaService.verifyAnswer(session, remoteAddr, params)) {
-									// Redirect user to login page
-									failureHandler.setDefaultFailureUrl(failureUrl)
-									failureHandler.onAuthenticationFailure(request, response, new BadCredentialsException("Captcha invalid!"))
-									return
-							}
-
-							super.attemptAuthentication(request, response)
-					}
-
-					public void setFailureUrl(String failureUrl) {
-							this.failureUrl = failureUrl
-					}
-			}
-</code></pre>
-
-<p>Finally, we will register this bean in our resources.groovy as follows:</p>
-
-<pre class="prettyprint"><code>    beans = {
-					authenticationProcessingFilter (AuthFilter) {
-							def conf = SpringSecurityUtils.securityConfig
-							authenticationManager = ref('authenticationManager')
-							failureUrl = conf.failureHandler. defaultFailureUrl
-							recaptchaService = ref('recaptchaService')
-							storeLastUsername  = conf.apf.storeLastUsername
-					}
-			}
-</code></pre>
-
-<p>Once done, we can use our ReCaptcha widget as part of our authentication process.</p>
-
-<p>I hope this has been helpful.</p>
-</p>
-  			<a href="blog/2013/fourth-post.html"><h1>Fourth Post</h1></a>
-  			<p>17 octubre 2013</p>
-  			<p><div class="paragraph">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel diam purus. Curabitur ut nisi lacus.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://example.org" class="bare">http://example.org</a></p>
-</li>
-<li>
-<p><a href="http://example.org">Example.org</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Nam id nisl quam. Donec a lorem sit amet libero pretium vulputate vel ut purus. Suspendisse leo arcu,
-mattis et imperdiet luctus, pulvinar vitae mi. Quisque fermentum sollicitudin feugiat. Mauris nec leo
-ligula. Vestibulum tristique odio ut risus ultricies a hendrerit quam iaculis. Duis tempor elit sit amet
-ligula vehicula et iaculis sem placerat. Fusce dictum, metus at volutpat lacinia, elit massa auctor risus,
-id auctor arcu enim eu augue. Donec ultrices turpis in mi imperdiet ac venenatis sapien sodales. In
-consequat imperdiet nunc quis bibendum. Nulla semper, erat quis ornare tristique, lectus massa posuere
-libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.</p>
-</div></p>
-  			<a href="blog/2013/third-post.html"><h1>Third Post</h1></a>
-  			<p>26 septiembre 2013</p>
-  			<p><div class="paragraph">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel diam purus. Curabitur ut nisi lacus.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://example.org" class="bare">http://example.org</a></p>
-</li>
-<li>
-<p><a href="http://example.org">Example.org</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Nam id nisl quam. Donec a lorem sit amet libero pretium vulputate vel ut purus. Suspendisse leo arcu,
-mattis et imperdiet luctus, pulvinar vitae mi. Quisque fermentum sollicitudin feugiat. Mauris nec leo
-ligula. Vestibulum tristique odio ut risus ultricies a hendrerit quam iaculis. Duis tempor elit sit amet
-ligula vehicula et iaculis sem placerat. Fusce dictum, metus at volutpat lacinia, elit massa auctor risus,
-id auctor arcu enim eu augue. Donec ultrices turpis in mi imperdiet ac venenatis sapien sodales. In
-consequat imperdiet nunc quis bibendum. Nulla semper, erat quis ornare tristique, lectus massa posuere
-libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.</p>
-</div></p>
-  			<a href="blog/2013/second-post.html"><h1>Second Post</h1></a>
-  			<p>25 agosto 2013</p>
-  			<p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel diam purus. Curabitur ut nisi lacus.</p>
-<ul>
-  <li><a href="http://example.org">http://example.org</a></li>
-  <li><a href="http://example.org">Example.org</a></li>
-</ul><p>Nam id nisl quam. Donec a lorem sit amet libero pretium vulputate vel ut purus. Suspendisse leo arcu,<br/>mattis et imperdiet luctus, pulvinar vitae mi. Quisque fermentum sollicitudin feugiat. Mauris nec leo<br/>ligula. Vestibulum tristique odio ut risus ultricies a hendrerit quam iaculis. Duis tempor elit sit amet<br/>ligula vehicula et iaculis sem placerat. Fusce dictum, metus at volutpat lacinia, elit massa auctor risus,<br/>id auctor arcu enim eu augue. Donec ultrices turpis in mi imperdiet ac venenatis sapien sodales. In<br/>consequat imperdiet nunc quis bibendum. Nulla semper, erat quis ornare tristique, lectus massa posuere<br/>libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.</p></p>
-  			<a href="blog/2013/first-post.html"><h1>First Post</h1></a>
-  			<p>24 julio 2013</p>
-  			<p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel diam purus. Curabitur ut nisi lacus.</p>
-
-<ul>
-<li><a href="http://example.org">http://example.org</a></li>
-<li><a href="http://example.org">Example.org</a></li>
-</ul>
-
-<p>Nam id nisl quam. Donec a lorem sit amet libero pretium vulputate vel ut purus. Suspendisse leo arcu, 
-mattis et imperdiet luctus, pulvinar vitae mi. Quisque fermentum sollicitudin feugiat. Mauris nec leo 
-ligula. Vestibulum tristique odio ut risus ultricies a hendrerit quam iaculis. Duis tempor elit sit amet 
-ligula vehicula et iaculis sem placerat. Fusce dictum, metus at volutpat lacinia, elit massa auctor risus, 
-id auctor arcu enim eu augue. Donec ultrices turpis in mi imperdiet ac venenatis sapien sodales.</p> 
-
-<pre class="prettyprint">
-<code>
-package org.jbake;
-
-public class Oven {
-	public static void main(String[] args) {
-		System.out.print("Baking!");
-  }
-}
-</code>
-</pre>
-
-<p>In consequat imperdiet nunc quis bibendum. Nulla semper, erat quis ornare tristique, lectus massa posuere 
-libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.</p>
-</p>
-	
 	<hr />
 	
-	<p>Older posts are available in the <a href="archive.html">archive</a>.</p>
-
 		</div>
 		<div id="push"></div>
     </div>
@@ -684,9 +497,9 @@ libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.</p>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/prettify.js"></script>
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
 
   </body>
 </html>
