@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dom, 17 ene 2016 19:37:08 -0800</pubDate>
-    <lastBuildDate>dom, 17 ene 2016 19:37:08 -0800</lastBuildDate>
+    <pubDate>dom, 17 ene 2016 19:38:06 -0800</pubDate>
+    <lastBuildDate>dom, 17 ene 2016 19:38:06 -0800</lastBuildDate>
 
     <item>
       <title>Grails Transactions - Revisited</title>
@@ -48,12 +48,10 @@ class Person {
 
 @Transactional
 class PersonService {
-
-def save() {
+	def save() {
 		new Person(name: &quot;Roberto&quot;).save()
 		new Person(name: &quot;Raj&quot;).save()
-}
-
+	}
 }
 &lt;/code&gt;
 &lt;/pre&gt;

@@ -91,12 +91,10 @@ class Person {
 
 @Transactional
 class PersonService {
-
-def save() {
+	def save() {
 		new Person(name: "Roberto").save()
 		new Person(name: "Raj").save()
-}
-
+	}
 }
 </code>
 </pre>
