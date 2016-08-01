@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 1 Aug 2016 11:55:19 -0700</pubDate>
-    <lastBuildDate>Mon, 1 Aug 2016 11:55:19 -0700</lastBuildDate>
+    <pubDate>Mon, 1 Aug 2016 14:24:49 -0700</pubDate>
+    <lastBuildDate>Mon, 1 Aug 2016 14:24:49 -0700</lastBuildDate>
 
     <item>
       <title>GR8Conf US Recap 2016</title>
@@ -33,7 +33,37 @@ In the afternoon I attended Jeff Brown’s “REST With Grails 3” workshop. He
 
 &lt;p&gt;
 Graeme Rocher kicked off the first day of talks with a keynote detailing the current state of Grails and the future, which is very exciting!
-He talked about all the new cool features in Grails 3.2: &lt;a href=&quot;http://gorm.grails.org/6.0.x/whatsNew/manual/index.html&quot;&gt;GORM 6 Suite which includes RxGORM&lt;/a&gt;, &lt;a href=&quot;https://grails.org/plugins.html#plugin/angular-scaffolding&quot;&gt;AngularJS 1.0 Scaffolding&lt;/a&gt; and &lt;a href=&quot;http://views.grails.org/1.1.x/&quot;&gt;JSON Views 1.1&lt;/a&gt;. I can&apos;t describe how excited I was when I saw all these cool features, Grails is a solid framework and evolving very fast thanks to the hard work of the OCI team and the community (more to come).
+He talked about all the new cool features in Grails 3.2: &lt;a href=&quot;http://gorm.grails.org/6.0.x/whatsNew/manual/index.html&quot; target=&quot;_blank&quot;&gt;GORM 6 Suite which includes RxGORM&lt;/a&gt;, &lt;a href=&quot;https://grails.org/plugins.html#plugin/angular-scaffolding&quot; target=&quot;_blank&quot;&gt;AngularJS 1.0 Scaffolding&lt;/a&gt; and &lt;a href=&quot;http://views.grails.org/1.1.x/&quot; target=&quot;_blank&quot;&gt;JSON Views 1.1&lt;/a&gt;. I can&apos;t describe how excited I was when I saw all these cool features, Grails is a solid framework and evolving very fast thanks to the hard work of the OCI team and the community.
+&lt;/p&gt;
+
+&lt;p&gt;
+During the first day I attended to the following talks:
+&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;
+		Gradle Recipes for Android: I don&apos;t have background in Android but a few months ago I had to work on build scripts for an Android app. This talk by Ken Kousen (kenkousen) was very helpful to me in order to understand more about the Android ecosystem and how it plays with Gradle. I can certainly tell that I learned a few tricks that will improve our current setup.
+	&lt;/li&gt;
+	&lt;li&gt;
+		Dynamic GORM: What can I say? It&apos;s always a pleasure to watch, attend or hear a talk by Burt Beckwith (@burtbeckwith). You have to check this repo &lt;a href=&quot;https://github.com/agileorbit/gorm-util&quot; target=&quot;_blank&quot;&gt;https://github.com/agileorbit/gorm-util&lt;/a&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		Asset-Pipeline: This talk went over how to make the best use of your static assets. If you don&apos;t use asset-pipeline, you should start doing it now. This talk was important to me because in the company I work for we have several issues with the use of static assets. This was a great opportunity for me to talk with David Estes (@davydotcom) and ask him some questions. Thanks again David.
+	&lt;/li&gt;
+	&lt;li&gt;
+		Codenarc Revisited: Jenn Strater (codeJENNerator) talked about the importance of using codenarc for code quality. If you don&apos;t know it, Codenarc is a static analysis tool for Groovy that enforces style, detects bad practices, and suggests improvements.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+	By the end of the day, Ken Kousen talk about the experiences as a Groovy Developer in the Java World. Believe me, this talk was so energizing, thanks Ken for remember us how awesome are the groovy based technologies and this community. Oh yes, don&apos;t forget to use Kotlin (just kidding)
+&lt;/p&gt;
+
+&lt;p&gt;
+	After that we headed to the Object Partners Meet &amp; Greet where I had the opportunity to talk with very nice guys doing some cool stuff. It&apos;s funny because I live in Los Angeles and I never had the chance to meet Joshua Tuberville from VirtualTourist, cool guy.
+&lt;/p&gt;
+&lt;p&gt;
+	Of course we had the Groovy Puzzles hosted by Baruch (@jbaruch) and his especial guest Daniel Woods (@danveloper). As you can imagine they had great groovy puzzles and drinking rules. At the end, Daniel gave away two copies of his book &quot;Learning Ratpack&quot;. If you don&apos;t have this book I encourage you to &lt;a href=&quot;http://shop.oreilly.com/product/0636920037545.do&quot; target=&quot;_blank&quot;&gt;buy it&lt;/a&gt;. Not only because of the great quality of the book, but also because all the royalties will be donated to the &lt;a href=&quot;https://www.gr8ladies.org/&quot; target=&quot;_blank&quot;&gt;GR8Ladies&lt;/a&gt;.
 &lt;/p&gt;
 
 	</description>
