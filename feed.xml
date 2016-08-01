@@ -6,14 +6,14 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 1 Aug 2016 09:45:48 -0700</pubDate>
-    <lastBuildDate>Mon, 1 Aug 2016 09:45:48 -0700</lastBuildDate>
+    <pubDate>Mon, 1 Aug 2016 09:47:13 -0700</pubDate>
+    <lastBuildDate>Mon, 1 Aug 2016 09:47:13 -0700</lastBuildDate>
 
     <item>
       <title>Grails Transactions - Revisited</title>
-      <link>http://rpalcolea.github.io/blog/2014/grails-transactions-revisited.html</link>
+      <link>http://rpalcolea.github.io/blog/2016/grails-transactions-revisited.html</link>
       <pubDate>Sun, 17 Jan 2016 00:00:00 -0800</pubDate>
-      <guid isPermaLink="false">blog/2014/grails-transactions-revisited.html</guid>
+      <guid isPermaLink="false">blog/2016/grails-transactions-revisited.html</guid>
       	<description>
 	
 &lt;p&gt;As we know, Grails services by default have automatic transaction management such as propagation and so on. By setting transactional to false you disable automatic Spring managed transaction demarcation for every method in the service. When is set to the true, The propagation level of the transaction is by default PROPAGATION_REQUIRED. Also we can use the @ Transactional and @ NotTransactional annotations. &lt;/p&gt;
@@ -438,21 +438,10 @@ mysql&amp;gt;
 	</description>
     </item>
     <item>
-      <title>Restart</title>
-      <link>http://rpalcolea.github.io/blog/2016/grails-transactions-revisited.html</link>
-      <pubDate>Sun, 17 Jan 2016 00:00:00 -0800</pubDate>
-      <guid isPermaLink="false">blog/2016/grails-transactions-revisited.html</guid>
-      	<description>
-	
-&lt;p&gt;After a couple of years I have found the motivation to write in this blog again. The idea is simple, writing about software development, particularly in the use of Groovy technologies.&lt;/p&gt;
-
-	</description>
-    </item>
-    <item>
       <title>Grails Transactions - Revisited</title>
-      <link>http://rpalcolea.github.io/blog/2014/spring-security-login-with-recaptcha.html</link>
+      <link>http://rpalcolea.github.io/blog/2015/spring-security-login-with-recaptcha.html</link>
       <pubDate>Sun, 19 Apr 2015 00:00:00 -0700</pubDate>
-      <guid isPermaLink="false">blog/2014/spring-security-login-with-recaptcha.html</guid>
+      <guid isPermaLink="false">blog/2015/spring-security-login-with-recaptcha.html</guid>
       	<description>
 	
 &lt;h2&gt;Spring Security Login With Recaptcha&lt;/h2&gt;
