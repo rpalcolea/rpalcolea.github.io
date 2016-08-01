@@ -6,9 +6,38 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 1 Aug 2016 09:47:13 -0700</pubDate>
-    <lastBuildDate>Mon, 1 Aug 2016 09:47:13 -0700</lastBuildDate>
+    <pubDate>Mon, 1 Aug 2016 11:55:19 -0700</pubDate>
+    <lastBuildDate>Mon, 1 Aug 2016 11:55:19 -0700</lastBuildDate>
 
+    <item>
+      <title>GR8Conf US Recap 2016</title>
+      <link>http://rpalcolea.github.io/blog/2016/GR8Conf-US-Recap-2016.html</link>
+      <pubDate>Mon, 1 Aug 2016 00:00:00 -0700</pubDate>
+      <guid isPermaLink="false">blog/2016/GR8Conf-US-Recap-2016.html</guid>
+      	<description>
+	
+&lt;p&gt;This was my first time attending GR8Conf and had a wonderful time and definitely it was a great experience.
+	As I mentioned to a few guys, I always wanted to attend but the circumstances were not appropriate on previous years but finally I did it!&lt;/p&gt;
+
+&lt;h2&gt;The workshops&lt;/h2&gt;
+
+&lt;p&gt;
+In the morning I went to the “Getting Started With Grails 3” workshop by Jeff Scott Brown. This session covered all the fundamentals of the framework, probably better as an introduction to developers not familiar with the framework but Jeff also included tips and tricks for developers with experience.
+&lt;/p&gt;
+
+&lt;p&gt;
+In the afternoon I attended Jeff Brown’s “REST With Grails 3” workshop. He explained Grails capabilities to build RESTful services with a small amount of code, explained the content negotation and more. The best part was his introduction to JSON views (more to come).
+&lt;/p&gt;
+
+&lt;h2&gt;The talks&lt;/h2&gt;
+
+&lt;p&gt;
+Graeme Rocher kicked off the first day of talks with a keynote detailing the current state of Grails and the future, which is very exciting!
+He talked about all the new cool features in Grails 3.2: &lt;a href=&quot;http://gorm.grails.org/6.0.x/whatsNew/manual/index.html&quot;&gt;GORM 6 Suite which includes RxGORM&lt;/a&gt;, &lt;a href=&quot;https://grails.org/plugins.html#plugin/angular-scaffolding&quot;&gt;AngularJS 1.0 Scaffolding&lt;/a&gt; and &lt;a href=&quot;http://views.grails.org/1.1.x/&quot;&gt;JSON Views 1.1&lt;/a&gt;. I can&apos;t describe how excited I was when I saw all these cool features, Grails is a solid framework and evolving very fast thanks to the hard work of the OCI team and the community (more to come).
+&lt;/p&gt;
+
+	</description>
+    </item>
     <item>
       <title>Grails Transactions - Revisited</title>
       <link>http://rpalcolea.github.io/blog/2016/grails-transactions-revisited.html</link>
@@ -434,6 +463,111 @@ mysql&amp;gt;
 &lt;p&gt;These examples were developed along with Raj Govindarajan.&lt;/p&gt;
 
 &lt;p&gt;Hope this can help you in the future.&lt;/p&gt;
+
+	</description>
+    </item>
+    <item>
+      <title>Spring Security Login With Recaptcha</title>
+      <link>http://rpalcolea.github.io/blog/2014/spring-security-login-with-recaptcha.html</link>
+      <pubDate>Sun, 19 Apr 2015 00:00:00 -0700</pubDate>
+      <guid isPermaLink="false">blog/2014/spring-security-login-with-recaptcha.html</guid>
+      	<description>
+	
+&lt;h2&gt;Spring Security Login With Recaptcha&lt;/h2&gt;
+
+&lt;p&gt;A few months ago I was asked to create a login with ReCaptcha using spring security core and recaptcha plugins. At that time I made a plugin for solving the requirement &lt;a href=&quot;http://grails.org/plugin/recaptcha-spring-security&quot;&gt;Spring Security Plugin Recaptcha&lt;/a&gt;. Today I want to share another idea to accomplish this.&lt;/p&gt;
+
+&lt;p&gt;Assuming the application has &lt;a href=&quot;http://grails.org/plugin/recaptcha&quot;&gt;ReCaptcha&lt;/a&gt; and &lt;a href=&quot;http://grails.org/plugin/spring-security-core&quot;&gt;spring security core&lt;/a&gt;  the first thing to do is add the ReCaptcha widget our loginview, usually auth.gsp.&lt;/p&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;
+	&lt;code&gt;
+&amp;lt;p&amp;gt;
+	&amp;lt;label for=&apos;username&apos;&amp;gt;&amp;lt;g:message code=&quot;springSecurity.login.username.label&quot;/&amp;gt;:&amp;lt;/label&amp;gt;
+	&amp;lt;input type=&apos;text&apos; class=&apos;text_&apos; name=&apos;j_username&apos; id=&apos;username&apos;/&amp;gt;
+&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;
+	&amp;lt;label for=&apos;password&apos;&amp;gt;&amp;lt;g:message code=&quot;springSecurity.login.password.label&quot;/&amp;gt;:&amp;lt;/label&amp;gt;
+	&amp;lt;input type=&apos;password&apos; class=&apos;text_&apos; name=&apos;j_password&apos; id=&apos;password&apos;/&amp;gt;
+&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;
+	&amp;lt;recaptcha:ifEnabled&amp;gt;
+		&amp;lt;recaptcha:recaptcha  theme=&quot;clean&quot;/&amp;gt;
+		&amp;lt;recaptcha:ifFailed&amp;gt;CAPTCHA Failed&amp;lt;/recaptcha:ifFailed&amp;gt;
+		&amp;lt;/recaptcha:ifEnabled&amp;gt;
+&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then generate a filter (AuthFilter.groovy) to override the &apos;authenticationProcessingFilter&apos; bean (this filter subclasses the plugin&apos;s RequestHolderAuthenticationFilter to Maintain its functionality). You can name this filter as you like and put it under /src/groovy folder.&lt;/p&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;
+import com.megatome.grails.RecaptchaService
+import grails.plugin.springsecurity.web.authentication.RequestHolderAuthenticationFilter
+import org.springframework.security.authentication.BadCredentialsException
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.AuthenticationException
+
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler
+import org.springframework.web.context.request.RequestContextHolder
+
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
+class AuthFilter extends RequestHolderAuthenticationFilter {
+	private String recaptcha_response
+	private String recaptcha_challenge
+	private String remoteAddr
+	private String failureUrl
+
+	RecaptchaService recaptchaService
+
+	private SimpleUrlAuthenticationFailureHandler failureHandler = new SimpleUrlAuthenticationFailureHandler()
+
+	@Override
+	Authentication attemptAuthentication(HttpServletRequest request, 	HttpServletResponse response) throws AuthenticationException {
+			def session = RequestContextHolder.currentRequestAttributes().getSession()
+
+			recaptcha_response = request.getParameter(&quot;recaptcha_response_field&quot;)
+			recaptcha_challenge = request.getParameter(&quot;recaptcha_challenge_field&quot;)
+			remoteAddr = request.getRemoteAddr()
+
+			Map params = [&quot;recaptcha_response_field&quot;: recaptcha_response, &quot;recaptcha_challenge_field&quot;: recaptcha_challenge]
+
+			// Check if valid
+			if (!recaptchaService.verifyAnswer(session, remoteAddr, params)) {
+				// Redirect user to login page
+				failureHandler.setDefaultFailureUrl(failureUrl)
+				failureHandler.onAuthenticationFailure(request, response, new BadCredentialsException(&quot;Captcha invalid!&quot;))
+				return
+			}
+
+			super.attemptAuthentication(request, response)
+	}
+
+	public void setFailureUrl(String failureUrl) {
+		this.failureUrl = failureUrl
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we will register this bean in our resources.groovy as follows:&lt;/p&gt;
+
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;
+beans = {
+	authenticationProcessingFilter (AuthFilter) {
+		def conf = SpringSecurityUtils.securityConfig
+		authenticationManager = ref(&apos;authenticationManager&apos;)
+		failureUrl = conf.failureHandler. defaultFailureUrl
+		recaptchaService = ref(&apos;recaptchaService&apos;)
+		storeLastUsername  = conf.apf.storeLastUsername
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once done, we can use our ReCaptcha widget as part of our authentication process.&lt;/p&gt;
+
+&lt;p&gt;I hope this has been helpful.&lt;/p&gt;
 
 	</description>
     </item>
