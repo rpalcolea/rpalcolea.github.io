@@ -55,40 +55,30 @@
       </div>
     </div>
     <div class="container">
-	
+
 	<div class="page-header">
 		<h1>Blog Archive</h1>
 	</div>
-	
+
 	<!--<ul>-->
 			<h4>August 2016</h4>
 			<ul>
-		
+
 		<li>01 - <a href="blog/2016/GR8Conf-US-Recap-2016.html">GR8Conf US Recap 2016</a></li>
 				</ul>
 				<h4>January 2016</h4>
 				<ul>
-		
+
 		<li>17 - <a href="blog/2016/grails-transactions-revisited.html">Grails Transactions - Revisited</a></li>
 				</ul>
 				<h4>April 2015</h4>
 				<ul>
-		
+
 		<li>19 - <a href="blog/2015/spring-security-login-with-recaptcha.html">Spring Security Login With Recaptcha</a></li>
 	</ul>
-	
-		</div>
-		<div id="push"></div>
-    </div>
-
-    <div id="footer">
-      <div class="container">
-        <p class="muted credit">&copy; 2016 Roberto Perez Alcolea | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
-      </div>
-    </div>
-    FreeMarker template error (DEBUG mode; use RETHROW in production!):
+	FreeMarker template error (DEBUG mode; use RETHROW in production!):
 The following has evaluated to null or missing:
-==> post  [in template "footer.ftl" at line 10, column 7]
+==> post  [in template "archive.ftl" at line 26, column 11]
 
 ----
 Tip: If the failing expression is known to be legally refer to something that's sometimes null or missing, either specify a default value like myOptionalVar!myDefault, or use <#if myOptionalVar??>when-present<#else>when-missing</#if>. (These only cover the last step of the expression; to cover the whole expression, use parenthesis: (myOptionalVar.foo)!myDefault, (myOptionalVar.foo)??
@@ -96,8 +86,7 @@ Tip: If the failing expression is known to be legally refer to something that's 
 
 ----
 FTL stack trace ("~" means nesting-related):
-	- Failed at: ${post.uri}  [in template "footer.ftl" at line 10, column 5]
-	- Reached through: #include "footer.ftl"  [in template "archive.ftl" at line 27, column 1]
+	- Failed at: ${post.uri}  [in template "archive.ftl" at line 26, column 9]
 ----
 
 Java stack trace (for programmers):
@@ -111,11 +100,6 @@ freemarker.core.InvalidReferenceException: [... Exception message was already pr
 	at freemarker.core.Expression.eval(Expression.java:78)
 	at freemarker.core.Expression.evalAndCoerceToString(Expression.java:82)
 	at freemarker.core.DollarVariable.accept(DollarVariable.java:41)
-	at freemarker.core.Environment.visit(Environment.java:324)
-	at freemarker.core.MixedContent.accept(MixedContent.java:54)
-	at freemarker.core.Environment.visit(Environment.java:324)
-	at freemarker.core.Environment.include(Environment.java:2072)
-	at freemarker.core.Include.accept(Include.java:167)
 	at freemarker.core.Environment.visit(Environment.java:324)
 	at freemarker.core.MixedContent.accept(MixedContent.java:54)
 	at freemarker.core.Environment.visit(Environment.java:324)
