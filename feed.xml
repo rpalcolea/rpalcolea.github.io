@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JBake</title>
+    <title>@rpalcolea - Roberto Perez Alcolea Blog</title>
     <link>http://rpalcolea.github.io</link>
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 1 Aug 2016 15:39:51 -0700</pubDate>
-    <lastBuildDate>Mon, 1 Aug 2016 15:39:51 -0700</lastBuildDate>
+    <pubDate>Wed, 10 Aug 2016 23:15:38 -0700</pubDate>
+    <lastBuildDate>Wed, 10 Aug 2016 23:15:38 -0700</lastBuildDate>
 
     <item>
       <title>GR8Conf US Recap 2016</title>
