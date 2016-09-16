@@ -6,11 +6,11 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Roberto Perez is a software engineer who is passionate about all aspects of software development. He mainly focuses on JVM based languages like Groovy and such as frameworks like Grails, Spring Boot, Ratpack</description>
     <language>en-gb</language>
-    <pubDate>Fri, 16 Sep 2016 14:15:28 -0700</pubDate>
-    <lastBuildDate>Fri, 16 Sep 2016 14:15:28 -0700</lastBuildDate>
+    <pubDate>Fri, 16 Sep 2016 14:16:28 -0700</pubDate>
+    <lastBuildDate>Fri, 16 Sep 2016 14:16:28 -0700</lastBuildDate>
 
     <item>
-      <title>Grails - Use IntelliJ&apos;s Database Tool Windoww to connect to in-memory H2 instance</title>
+      <title>Grails - Use IntelliJ&apos;s Database Tool to connect to in-memory H2 instance</title>
       <link>http://rpalcolea.github.io/blog/2016/grails-using-intellij-to-connect-to-h2-database.html</link>
       <pubDate>Fri, 16 Sep 2016 00:00:00 -0700</pubDate>
       <guid isPermaLink="false">blog/2016/grails-using-intellij-to-connect-to-h2-database.html</guid>
