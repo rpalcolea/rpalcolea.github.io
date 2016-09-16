@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Roberto Perez is a software engineer who is passionate about all aspects of software development. He mainly focuses on JVM based languages like Groovy and such as frameworks like Grails, Spring Boot, Ratpack</description>
     <language>en-gb</language>
-    <pubDate>Fri, 16 Sep 2016 14:12:19 -0700</pubDate>
-    <lastBuildDate>Fri, 16 Sep 2016 14:12:19 -0700</lastBuildDate>
+    <pubDate>Fri, 16 Sep 2016 14:14:02 -0700</pubDate>
+    <lastBuildDate>Fri, 16 Sep 2016 14:14:02 -0700</lastBuildDate>
 
     <item>
       <title>Grails - Use IntelliJ database browser to connect to a in memory H2 instance</title>
@@ -16,11 +16,11 @@
       <guid isPermaLink="false">blog/2016/grails-using-intellij-to-connect-to-h2-database.html</guid>
       	<description>
 	
-&lt;p&gt;H2 is a relational database management system written in Java. It can be embedded in Java applications or run in the client-server mode&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;H2&lt;/strong&gt; is a relational database management system written in Java. It can be embedded in Java applications or run in the client-server mode&lt;/p&gt;
 
 &lt;p&gt;When you use Grails for a new project, the default DBMS (DataBase Management System) is H2. A cool characteristic of this DBMS is its capability to handle in-memory tables: it is possible to create a database living in the RAM memory.&lt;/p&gt;
 
-&lt;p&gt;In Grails 3.x your database configuration might look as follows:&lt;/p&gt;
+&lt;p&gt;In &lt;strong&gt;Grails 3.x&lt;/strong&gt; your database configuration might look as follows:&lt;/p&gt;
 &lt;pre class=&quot;prettyprint&quot;&gt;
 &lt;code&gt;
 dataSource:
@@ -46,9 +46,8 @@ environments:
 
 &lt;p&gt;Wouldn&apos;t be nice to connect to your H2 in memory database using IntelliJ? Well that&apos;s possible using a TCP Server for client/server connections.&lt;/p&gt;
 
-&lt;p&gt;You can accomplish this by simply doing the following in your BootStrap.groovy file&lt;/p&gt;
+&lt;p&gt;You can accomplish this by simply doing the following in your &lt;strong&gt;BootStrap.groovy&lt;/strong&gt; file&lt;/p&gt;
 
-&lt;p&gt;In Grails 3.x your database configuration might look as follows:&lt;/p&gt;
 &lt;pre class=&quot;prettyprint&quot;&gt;
 &lt;code&gt;
 import org.h2.tools.Server
@@ -77,9 +76,9 @@ class BootStrap {
 
 &lt;p&gt;After we start our app, we can use the Database Tool Window and add a connection to a remote H2 database&lt;/p&gt;
 
-&lt;img src=&quot;https://s14.postimg.io/nhbxj8agx/Screen_Shot_2016_09_16_at_10_52_42_AM.png&quot;/&gt;
+&lt;p&gt;&lt;img src=&quot;https://s14.postimg.io/nhbxj8agx/Screen_Shot_2016_09_16_at_10_52_42_AM.png&quot;/&gt;&lt;/p&gt;
 
-&lt;p&gt;Hope this is helpful during your development/testing phase.&lt;/p&gt;
+&lt;p&gt;I hope you find this helpful.&lt;/p&gt;
 
 	</description>
     </item>

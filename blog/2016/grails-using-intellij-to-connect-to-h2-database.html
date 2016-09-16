@@ -77,11 +77,11 @@
 	<p><em>16 September 2016</em></p>
 
 	<p>
-<p>H2 is a relational database management system written in Java. It can be embedded in Java applications or run in the client-server mode</p>
+<p><strong>H2</strong> is a relational database management system written in Java. It can be embedded in Java applications or run in the client-server mode</p>
 
 <p>When you use Grails for a new project, the default DBMS (DataBase Management System) is H2. A cool characteristic of this DBMS is its capability to handle in-memory tables: it is possible to create a database living in the RAM memory.</p>
 
-<p>In Grails 3.x your database configuration might look as follows:</p>
+<p>In <strong>Grails 3.x</strong> your database configuration might look as follows:</p>
 <pre class="prettyprint">
 <code>
 dataSource:
@@ -107,9 +107,8 @@ environments:
 
 <p>Wouldn't be nice to connect to your H2 in memory database using IntelliJ? Well that's possible using a TCP Server for client/server connections.</p>
 
-<p>You can accomplish this by simply doing the following in your BootStrap.groovy file</p>
+<p>You can accomplish this by simply doing the following in your <strong>BootStrap.groovy</strong> file</p>
 
-<p>In Grails 3.x your database configuration might look as follows:</p>
 <pre class="prettyprint">
 <code>
 import org.h2.tools.Server
@@ -138,9 +137,9 @@ class BootStrap {
 
 <p>After we start our app, we can use the Database Tool Window and add a connection to a remote H2 database</p>
 
-<img src="https://s14.postimg.io/nhbxj8agx/Screen_Shot_2016_09_16_at_10_52_42_AM.png"/>
+<p><img src="https://s14.postimg.io/nhbxj8agx/Screen_Shot_2016_09_16_at_10_52_42_AM.png"/></p>
 
-<p>Hope this is helpful during your development/testing phase.</p>
+<p>I hope you find this helpful.</p>
 </p>
 
 	<!-- Disqus Comments Section -->
