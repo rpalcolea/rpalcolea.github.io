@@ -83,22 +83,22 @@
 <p>In Grails 3.x your database configuration might look as follows:</p>
 <pre class="prettyprint">
 <code>
-	dataSource:
-	    pooled: true
-	    jmxExport: true
-	    driverClassName: org.h2.Driver
-	    username: sa
-	    password:
+dataSource:
+	  pooled: true
+	  jmxExport: true
+	  driverClassName: org.h2.Driver
+	  username: sa
+	  password:
 
-	environments:
-	    development:
-	       dataSource:
-	            dbCreate: create-drop
-	            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-	    test:
-	       dataSource:
-	            dbCreate: create-drop
-	            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+environments:
+    development:
+	     dataSource:
+	          dbCreate: create-drop
+            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    test:
+       dataSource:
+            dbCreate: create-drop
+            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
 </code>
 </pre>
 
@@ -111,23 +111,23 @@
 <p>In Grails 3.x your database configuration might look as follows:</p>
 <pre class="prettyprint">
 <code>
-	import org.h2.tools.Server
+import org.h2.tools.Server
 
-	class BootStrap {
-	    final String[] args = [
+class BootStrap {
+	  final String[] args = [
 	        "-tcpPort", "8092",
 	        "-tcpAllowOthers"]
 
-	    Server server
+	  Server server
 
-	    def init = { servletContext ->
+	  def init = { servletContext ->
 	        server = Server.createTcpServer(args).start()
-	    }
+	  }
 
-	    def destroy = {
+	  def destroy = {
 	        server.stop()
-	    }
-	}
+	  }
+}
 </code>
 </pre>
 
