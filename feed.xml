@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Roberto Perez is a software engineer who is passionate about all aspects of software development. He mainly focuses on JVM based languages like Groovy and such as frameworks like Grails, Spring Boot, Ratpack</description>
     <language>en-gb</language>
-    <pubDate>Fri, 16 Sep 2016 14:09:01 -0700</pubDate>
-    <lastBuildDate>Fri, 16 Sep 2016 14:09:01 -0700</lastBuildDate>
+    <pubDate>Fri, 16 Sep 2016 14:11:03 -0700</pubDate>
+    <lastBuildDate>Fri, 16 Sep 2016 14:11:03 -0700</lastBuildDate>
 
     <item>
       <title>Grails - Use IntelliJ database browser to connect to a in memory H2 instance</title>
@@ -42,7 +42,7 @@
 &lt;/code&gt;
 &lt;/pre&gt;
 
-&lt;p&gt;One nice feature of IntelliJ is the &lt;a href=&quot;https://www.jetbrains.com/help/idea/2016.2/database-tool-window.html&quot; target=&quot;_blank&quot;&gt;Database Tool Window&lt;a&gt;.
+&lt;p&gt;One nice feature of IntelliJ is the &lt;a href=&quot;https://www.jetbrains.com/help/idea/2016.2/database-tool-window.html&quot; target=&quot;_blank&quot;&gt;Database Tool Window&lt;/a&gt;.
 
 &lt;p&gt;Wouldn&apos;t be nice to connect to your H2 in memory database using IntelliJ? Well that&apos;s possible using a TCP Server for client/server connections.&lt;/p&gt;
 
@@ -78,6 +78,8 @@
 &lt;p&gt;After we start our app, we can use the Database Tool Window and add a connection to a remote H2 database&lt;/p&gt;
 
 &lt;img src=&quot;https://s14.postimg.io/nhbxj8agx/Screen_Shot_2016_09_16_at_10_52_42_AM.png&quot;/&gt;
+
+&lt;p&gt;Hope this is helpful during your development/testing phase.&lt;/p&gt;
 
 	</description>
     </item>
