@@ -6,13 +6,139 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Roberto Perez is a software engineer who is passionate about all aspects of software development. He mainly focuses on JVM based languages like Groovy and such as frameworks like Grails, Spring Boot, Ratpack</description>
     <language>en-gb</language>
-    <pubDate>Fri, 16 Sep 2016 14:16:28 -0700</pubDate>
-    <lastBuildDate>Fri, 16 Sep 2016 14:16:28 -0700</lastBuildDate>
+    <pubDate>Sat, 5 Aug 2017 18:28:59 -0500</pubDate>
+    <lastBuildDate>Sat, 5 Aug 2017 18:28:59 -0500</lastBuildDate>
 
+    <item>
+      <title>GR8Conf US Recap 2017</title>
+      <link>http://rpalcolea.github.io/blog/2017/GR8Conf-US-Recap-2017.html</link>
+      <pubDate>Sat, 5 Aug 2017 00:00:00 -0500</pubDate>
+      <guid isPermaLink="false">blog/2017/GR8Conf-US-Recap-2017.html</guid>
+      	<description>
+	&lt;p&gt;It&apos;s been a while since my last blog post, but Today I&apos;d like to talk about GR8Conf US 2017.&lt;/p&gt;
+
+&lt;p&gt;This was my second time attending GR8Conf US and it was very special because I had the opportunity to give my first talk in a conference! Before going into the details of the 2017 edition, I want to share a little bit more of why this is very important for me.&lt;/p&gt;
+
+&lt;p&gt;When I started to work with Groovy/Grails in 2010 I was totally new to software development using JVM related techonologies and I found the Groovy community a very friendly one. A year later I started enjoy Grails so much that I became some sort of advocate for it and started to follow people working heavily on Grails like Graeme Rocher, Jeff Brown, Ted Naleid, Burt Beckwith, Bobby Warner, Ryan Vanderwerf, Dhiraj Dmahapatro, Colin Harrington and others.&lt;/p&gt;
+
+&lt;p&gt;Few months/years later I started to see Minneapolis as a great place to work with Groovy, companies like Target, Object Partners and Refactr had a lot of employees contributing to the community on a daily basis. I wanted to travel to Minneapolis for GR8Conf and meet all these cool people, unfortunately, I didn&apos;t have the money to pay for my travel expenses.&lt;/p&gt;
+
+&lt;p&gt;I finally decided that I wanted a job in Minneapolis but I couldn&apos;t land one since my show stopper was the need for a work Visa. During that time I met great people that gave me advices for my career and that helped me to land a job in Los Angeles, California... I&apos;d like to thanks Craig Burke and Dan Woods for answering personal questions during that time.&lt;/p&gt;
+
+&lt;p&gt;A few more years later, I finally had the opportunity to attend GR8Conf US last year and had a wonderful time! After that I knew I wanted to live in Minneapolis and one day speak at the conference, a couple of months later I signed a job offer with Target and here I am... enjoying everyday, working in cool things with very talented people.&lt;/p&gt;
+
+&lt;p&gt;So one of my career goals was always to speak at GR8Conf, I can check it as done!&lt;/p&gt;
+
+&lt;p&gt;Going back to GR8Conf, I&apos;d like to share some interesting talks that I attended to, hopefully the videos will be online soon!&lt;/p&gt;
+
+&lt;h2&gt;The workshops&lt;/h2&gt;
+
+&lt;p&gt;In the morning I went to the &lt;b&gt;“Amazon Alexa Workshop”&lt;/b&gt; workshop by Ryan Vanderwerf and Lee Fox. This session covered all the fundamentals to write AWS Lambad with Groovy and create your first Alexa skill. It was very fun to use Groovy for something like this, if you are looking for things to do on your spare time check it out!&lt;/p&gt;
+
+&lt;p&gt;
+In the afternoon I attended Daniel Hyun&apos;s &lt;b&gt;“Hands on Ratpack”&lt;/b&gt; workshop. I use Ratpack everyday to write high performant APIs but I really wanted to attend Danny&apos;s workshop because I knew it was TDD! It was fun but Danny, I&apos;m sorry, I cheated and did it in Groovy :(
+&lt;/p&gt;
+
+&lt;h2&gt;The talks&lt;/h2&gt;
+
+&lt;p&gt;
+Graeme Rocher kicked off the first day of talks with a keynote detailing the current state of Grails and the future, which is very exciting!
+Although I don&apos;t use Grails on a daily basis, it was great to see how Grails is evolving so quickly and adding very cool features on Grails 3.3 and upcoming releases. The engineering behind Grails is always that always amazes me, very cool stuff
+&lt;/p&gt;
+
+&lt;p&gt;
+During the first day I attended to the following talks:
+&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;
+		&lt;b&gt;Accelerating developer productivity with Gradle:&lt;/b&gt; I&apos;m a big fan of Gradle and Nebula plugins so I really wanted to attend this talk. Craig did a fantastic job on showing the new features on Gradle including the Build Cache and Composite Builds. In my case, composite builds is something I&apos;m exploring for shared libraries... I know I shouldn&apos;t write shared libraries in a microservice world but what about those for common things like network protocols? You should give it a try, I will.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Devos @Scale:&lt;/b&gt; Never had a chance to attend Baruch&apos;s talks and it was phenomenal, He has a unique way to walk you through multiple scenarios inside a software organization... great talk.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Surviving in a Microservices Enviroment&lt;/b&gt; Steve is one of those smart guys that have being working with microservices for a while in particular using message brokers. It was very interesting to hear his experiences and learning from it. Really great talk
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Decoupling your microservices&lt;/b&gt; Ted Naleid talked about how to deocuple your microservices using technologies like Apache Kafka and Netflix Hollow. I was looking forward to this talk since these are two techonologies that I&apos;ve been using the last few months and I find them very powerful in a microservice world, specifically Hollow... Netflix Hollow is a java library and toolset for disseminating in-memory datasets from a single producer to many consumers for high performance read-only access (http://hollow.how/). I watched previous talks from Ted and I know how important is performance and details for him, this was a great talk, hopefully it opened the mind for the others in the room to start exploring this.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+	After that we headed to the Object Partners Meet &amp; Greet where I had the opportunity to talk with very nice guys doing some cool stuff. It was great to catch up with people that I already knew and made new friends.
+&lt;/p&gt;
+&lt;p&gt;
+	Of course we had the Groovy Puzzles hosted by Baruch (@jbaruch) and his especial guest Daniel Woods (@danveloper). As you can imagine they had great groovy puzzles and drinking rules. At the end, Dan and Baruch finished a bottle of bulleit rye drinking shots. Dan also gave a few copies of this book &quot;Learning Ratpack&quot;, if you don&apos;t have this book I encourage you to &lt;a href=&quot;http://shop.oreilly.com/product/0636920037545.do&quot; target=&quot;_blank&quot;&gt;buy it&lt;/a&gt;. Not only because of the great quality of the book, but also because all the royalties will be donated to the &lt;a href=&quot;https://www.gr8ladies.org/&quot; target=&quot;_blank&quot;&gt;GR8Ladies&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+The second day was the best:
+&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;
+		&lt;b&gt;Infrastructure as Code:&lt;/b&gt; This talk by John Engelman covered HashiCorp&apos;s Terraform to manage infrastructure and applying build, test, commit cyclle and CI to infrastructure projects. John has a lot of experience on this topic, I really enjoyed his talk.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Continuous Deployment to Kubernetes with Spinnaker:&lt;/b&gt; Lars Wander explained how to setup pipelines that demonstrate best-practice deployments to production of Docker containers using Kubernetes and Spinnaker, including picking deployment strategies, rollback mechanisms and more.
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Ratpack Web Framework:&lt;/b&gt; This talk by Dan Woods was awesome, he did live coding without slides! He did some nice demos of how modern web development in Groovy should be using Ratpack. If you don&apos;t know, &lt;a href=&quot;https://ratpack.io/&quot; target=&quot;_blank&quot;&gt;Ratpack&lt;/a&gt; is a set of Java libraries for building modern HTTP applications. It provides just enough for writing practical, high performance, apps. It is built on Java 8, Netty and reactive principles.
+	&lt;/li&gt;
+	&lt;li&gt;
+	   &lt;b&gt;Real Time Traffic Visualization with Vizceral and Hystrix:&lt;/b&gt; I had to attend this one because I was the speaker, right? This was the best talk in the conference hehe well probably not but I really enjoyed showing how Hystrix works and how to collect metrics in order to visualize traffic. You can find my slides &lt;a href=&quot;https://www.slideshare.net/rperezalcolea/gr8confus-2017-real-time-traffic-visualization-with-vizceral-and-hystrix-78347542&quot;&gt;here&lt;/a&gt; and my code on &lt;a href=&quot;https://github.com/rpalcolea/gr8confus-2017-demo&quot;&gt;Github&lt;/a&gt;. Hopefully the video will go online soon.
+ &lt;/li&gt;
+	&lt;li&gt;
+		&lt;b&gt;Groovy for systems administrators:&lt;/b&gt; In this live coding talk Dan explained how we can do system administrator tasks using Gradle, Nebula OS package and other great tools, obviously using Groovy.
+	&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+	To close this awesome conference, Paul King gave the talk &lt;b&gt;&quot;Groovy Update: What&apos;s new in Groovy 2.5+&quot;&lt;/b&gt;. He talked about new upcoming features in Groovy, very exciting stuff... really looking forward to the parrot.
+&lt;/p&gt;
+
+&lt;p&gt;
+	After that we headed to The Local to have some appetizers and drinks. I really enjoyed this networking event.
+&lt;/p&gt;
+
+&lt;h2&gt;To finalize&lt;/h2&gt;
+
+&lt;p&gt;
+	During the conference I had the opportunity  and time to talk about software and everyday life with very talented and interesting people:
+	Dhiraj Mahapatro (&lt;a href=&quot;https://twitter.com/dhirajmahapatro&quot; target=&quot;_blank&quot;&gt;@dhirajmahapatro&lt;/a&gt;),
+	Bobby Warner  (&lt;a href=&quot;https://twitter.com/&quot; target=&quot;_blank&quot;&gt;@bobbywarner&lt;/a&gt;),
+	Søren Berg Glasius (&lt;a href=&quot;https://twitter.com/sbglasius&quot; target=&quot;_blank&quot;&gt;@sbglasius&lt;/a&gt;),
+	Daniel Woods (&lt;a href=&quot;https://twitter.com/danveloper&quot; target=&quot;_blank&quot;&gt;@danveloper&lt;/a&gt;),
+	Eric Helgeson (&lt;a href=&quot;https://twitter.com/nulleric&quot; target=&quot;_blank&quot;&gt;@nulleric&lt;/a&gt;),
+	Evan Murphy,
+	Izaak Lauer,
+	Ivan Lopez (&lt;a href=&quot;https://twitter.com/ilopmar&quot; target=&quot;_blank&quot;&gt;@ilopmar&lt;/a&gt;),
+	Ken (&lt;a href=&quot;https://twitter.com/kktec&quot; target=&quot;_blank&quot;&gt;@kktec&lt;/a&gt;),
+	Burt Beckwith (&lt;a href=&quot;https://twitter.com/burtbeckwith&quot; target=&quot;_blank&quot;&gt;@burtbeckwith&lt;/a&gt;),
+	Steve Pember (&lt;a href=&quot;https://twitter.com/svpember&quot; target=&quot;_blank&quot;&gt;@svpember&lt;/a&gt;),
+	Daniel Hyun (&lt;a href=&quot;https://twitter.com/Lspacewalker&quot; target=&quot;_blank&quot;&gt;@Lspacewalker&lt;/a&gt;),
+	Ryan Vanderwerf (&lt;a href=&quot;https://twitter.com/RyanVanderwerf&quot; target=&quot;_blank&quot;&gt;@RyanVanderwerf&lt;/a&gt;),
+	Aaron Zirbes (&lt;a href=&quot;https://twitter.com/Zirbes&quot; target=&quot;_blank&quot;&gt;@Zirbes&lt;/a&gt;),
+	Shaun Jurgemeyer (&lt;a href=&quot;https://twitter.com/sjurgemeyer&quot; target=&quot;_blank&quot;&gt;@sjurgemeyer&lt;/a&gt;)
+	Ted Naleid (&lt;a href=&quot;https://twitter.com/tednaleid&quot; target=&quot;_blank&quot;&gt;@tednaleid&lt;/a&gt;)
+	and so many others (btw you should follow them on Twitter)
+&lt;/p&gt;
+
+&lt;p&gt;
+	I would like to thank Doug and the GR8Conf US organizers for such a wonderful job! Overall GR8Conf US 2017 was a fantastic conference, and I’m already looking forward to attending Gr8Conf 2018!
+&lt;/p&gt;
+
+&lt;p&gt;
+	I had a great time. I think everyone knows that the Groovy community is full of talented people, they are great human beings, kind and friendly... Software is a passion that drives everyone but there is more than that and I&apos;m looking forward to contribute back to it and see them again soon.
+&lt;/p&gt;
+
+	</description>
+    </item>
     <item>
       <title>Grails - Use IntelliJ&apos;s Database Tool to connect to in-memory H2 instance</title>
       <link>http://rpalcolea.github.io/blog/2016/grails-using-intellij-to-connect-to-h2-database.html</link>
-      <pubDate>Fri, 16 Sep 2016 00:00:00 -0700</pubDate>
+      <pubDate>Fri, 16 Sep 2016 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2016/grails-using-intellij-to-connect-to-h2-database.html</guid>
       	<description>
 	
@@ -85,7 +211,7 @@ class BootStrap {
     <item>
       <title>GR8Conf US Recap 2016</title>
       <link>http://rpalcolea.github.io/blog/2016/GR8Conf-US-Recap-2016.html</link>
-      <pubDate>Mon, 1 Aug 2016 00:00:00 -0700</pubDate>
+      <pubDate>Mon, 1 Aug 2016 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2016/GR8Conf-US-Recap-2016.html</guid>
       	<description>
 	
@@ -216,7 +342,7 @@ The second day was great too:
     <item>
       <title>Grails Transactions - Revisited</title>
       <link>http://rpalcolea.github.io/blog/2016/grails-transactions-revisited.html</link>
-      <pubDate>Sun, 17 Jan 2016 00:00:00 -0800</pubDate>
+      <pubDate>Sun, 17 Jan 2016 00:00:00 -0600</pubDate>
       <guid isPermaLink="false">blog/2016/grails-transactions-revisited.html</guid>
       	<description>
 	
@@ -644,7 +770,7 @@ mysql&amp;gt;
     <item>
       <title>Spring Security Login With Recaptcha</title>
       <link>http://rpalcolea.github.io/blog/2015/spring-security-login-with-recaptcha.html</link>
-      <pubDate>Sun, 19 Apr 2015 00:00:00 -0700</pubDate>
+      <pubDate>Sun, 19 Apr 2015 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2015/spring-security-login-with-recaptcha.html</guid>
       	<description>
 	
