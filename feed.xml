@@ -6,8 +6,8 @@
     <atom:link href="http://rpalcolea.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Roberto Perez is a software engineer who is passionate about all aspects of software development. He mainly focuses on JVM based languages like Groovy and such as frameworks like Grails, Spring Boot, Ratpack</description>
     <language>en-gb</language>
-    <pubDate>Sat, 5 Aug 2017 18:28:59 -0500</pubDate>
-    <lastBuildDate>Sat, 5 Aug 2017 18:28:59 -0500</lastBuildDate>
+    <pubDate>Sun, 6 Aug 2017 12:59:26 -0500</pubDate>
+    <lastBuildDate>Sun, 6 Aug 2017 12:59:26 -0500</lastBuildDate>
 
     <item>
       <title>GR8Conf US Recap 2017</title>
@@ -43,7 +43,7 @@ In the afternoon I attended Daniel Hyun&apos;s &lt;b&gt;“Hands on Ratpack”&l
 
 &lt;p&gt;
 Graeme Rocher kicked off the first day of talks with a keynote detailing the current state of Grails and the future, which is very exciting!
-Although I don&apos;t use Grails on a daily basis, it was great to see how Grails is evolving so quickly and adding very cool features on Grails 3.3 and upcoming releases. The engineering behind Grails is always that always amazes me, very cool stuff
+Although I don&apos;t use Grails on a daily basis, it was great to see how Grails is evolving so quickly and adding very cool features on Grails 3.3 and upcoming releases. The engineering behind Grails is something that always amazes me, very cool stuff
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -107,10 +107,11 @@ The second day was the best:
 &lt;p&gt;
 	During the conference I had the opportunity  and time to talk about software and everyday life with very talented and interesting people:
 	Dhiraj Mahapatro (&lt;a href=&quot;https://twitter.com/dhirajmahapatro&quot; target=&quot;_blank&quot;&gt;@dhirajmahapatro&lt;/a&gt;),
+	Eric Helgeson (&lt;a href=&quot;https://twitter.com/nulleric&quot; target=&quot;_blank&quot;&gt;@nulleric&lt;/a&gt;),
 	Bobby Warner  (&lt;a href=&quot;https://twitter.com/&quot; target=&quot;_blank&quot;&gt;@bobbywarner&lt;/a&gt;),
 	Søren Berg Glasius (&lt;a href=&quot;https://twitter.com/sbglasius&quot; target=&quot;_blank&quot;&gt;@sbglasius&lt;/a&gt;),
 	Daniel Woods (&lt;a href=&quot;https://twitter.com/danveloper&quot; target=&quot;_blank&quot;&gt;@danveloper&lt;/a&gt;),
-	Eric Helgeson (&lt;a href=&quot;https://twitter.com/nulleric&quot; target=&quot;_blank&quot;&gt;@nulleric&lt;/a&gt;),
+	Doug Sabers (&lt;a href=&quot;https://twitter.com/lightsabersd&quot; target=&quot;_blank&quot;&gt;@lightsabersd&lt;/a&gt;),
 	Evan Murphy,
 	Izaak Lauer,
 	Ivan Lopez (&lt;a href=&quot;https://twitter.com/ilopmar&quot; target=&quot;_blank&quot;&gt;@ilopmar&lt;/a&gt;),
@@ -126,7 +127,7 @@ The second day was the best:
 &lt;/p&gt;
 
 &lt;p&gt;
-	I would like to thank Doug and the GR8Conf US organizers for such a wonderful job! Overall GR8Conf US 2017 was a fantastic conference, and I’m already looking forward to attending Gr8Conf 2018!
+	I would like to thank Doug Sabers and the GR8Conf US organizers for such a wonderful job! Overall GR8Conf US 2017 was a fantastic conference, and I’m already looking forward to attending Gr8Conf 2018!
 &lt;/p&gt;
 
 &lt;p&gt;
